@@ -1,0 +1,19 @@
+name: "CI/CD"
+on:
+  push:
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Git repo
+        uses: actions/checkout@v4
+      - name: Setup mdBook
+        uses: peaceiris/actions-mdbook@v2
+        with:
+          mdbook-version: 'latest'
+      - name: Build Book
+        run: mdbook build
+      - uses: actions/upload-artifact@v7
+        with:
+          name: Book
+          path: book/
